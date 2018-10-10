@@ -8,9 +8,8 @@ SvgChangeForm::SvgChangeForm(QWidget *parent) :
     ui->setupUi(this);   
 //    _FileDir = "F:/Roboshop/seer/Roboshop-Pro/333";
     ui->lineEdit_dir_name->setReadOnly(true);
-//    ui->lineEdit_color_rgb->setReadOnly(true);
+    ui->lineEdit_color_rgb->setPlaceholderText("#ff5500");
 }
-
 SvgChangeForm::~SvgChangeForm()
 {
     delete ui;

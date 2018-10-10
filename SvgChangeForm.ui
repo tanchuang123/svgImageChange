@@ -56,13 +56,23 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton">
+          <property name="toolTip">
+           <string>复制HTML中颜色值到编辑框</string>
+          </property>
           <property name="text">
-           <string>测试</string>
+           <string>颜色</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_color_rgb"/>
+         <widget class="QLineEdit" name="lineEdit_color_rgb">
+          <property name="statusTip">
+           <string/>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_change">
