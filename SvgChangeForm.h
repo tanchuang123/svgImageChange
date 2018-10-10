@@ -26,10 +26,12 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_File_path_clicked();
+
 private:
     Ui::SvgChangeForm *ui;
-    QString _FileDir;
-    QFileInfoList _FileInfoList;
+    QString _FileDir;//需要修改的svg文件或文件夹
+    QFileInfoList _FileInfoList;//遍历文件
 };
 
 #endif // SVGCHANGEFORM_H

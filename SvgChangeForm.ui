@@ -32,7 +32,14 @@
         <item>
          <widget class="QPushButton" name="pushButton_select_Dir">
           <property name="text">
-           <string>选择文件</string>
+           <string>文件夹路径</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_File_path">
+          <property name="text">
+           <string>文件路径</string>
           </property>
          </widget>
         </item>

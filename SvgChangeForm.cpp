@@ -6,7 +6,9 @@ SvgChangeForm::SvgChangeForm(QWidget *parent) :
     ui(new Ui::SvgChangeForm)
 {
     ui->setupUi(this);   
-    _FileDir = "F:/Roboshop/seer/Roboshop-Pro/bin/release/msvc_x64/appInfo/images/skin1/images/RobotLibrary";
+//    _FileDir = "F:/Roboshop/seer/Roboshop-Pro/333";
+    ui->lineEdit_dir_name->setReadOnly(true);
+//    ui->lineEdit_color_rgb->setReadOnly(true);
 }
 
 SvgChangeForm::~SvgChangeForm()
@@ -16,21 +18,21 @@ SvgChangeForm::~SvgChangeForm()
 
 void SvgChangeForm::on_pushButton_select_Dir_clicked()
 {
-   QFileDialog::getOpenFileName(NULL," ",".","*.zip");
-//    if(!_FileName.isEmpty())
-//    {
-//        return _FileName;
-//    }
-//    return NULL;
-//   _FileDir = "F:/Roboshop/seer/Roboshop-Pro/bin/release/msvc_x64/appInfo/images/skin1/images/RobotLibrary";
+    QString file= QFileDialog::getExistingDirectory(NULL," ",".");//只获取文件夹路径
+    if(!file.isEmpty())
+    {
+        _FileDir=file;
+        ui->lineEdit_dir_name->setText(_FileDir);
+    }
 }
 //fill="#1296db"
 void SvgChangeForm::on_pushButton_change_clicked()
 {
 
-
-
 //    QString displayString;
+  if(!_FileDir.contains(".svg"))
+  {
+
     QDir dir(_FileDir);
     int fileCount=0;
     if(!dir.exists()) //判断文件夹是否存在
@@ -66,6 +68,12 @@ void SvgChangeForm::on_pushButton_change_clicked()
 
       }
    }
+  }
+  else
+  {
+
+      writeFile(_FileDir,ui->lineEdit_color_rgb->text());
+  }
 }
 //
 void SvgChangeForm::writeFile(QString filePath,QString colorRgb)
@@ -89,7 +97,7 @@ void SvgChangeForm::writeFile(QString filePath,QString colorRgb)
                if(lineNum!=-1)
                {
                  strRgb= needLine.mid(lineNum+6,7);
-                 needLine.replace(strRgb,"#1296db");
+                 needLine.replace(strRgb,ui->lineEdit_color_rgb->text().toLocal8Bit());
                  qDebug()<<needLine<<"needLine";
                  file.close();
                  file.open(QIODevice:: WriteOnly);
@@ -108,31 +116,39 @@ void SvgChangeForm::on_pushButton_clicked()
       if (dialog.exec()) {
           QColor color = dialog.selectedColor();
           QString senderName = sender()->objectName();
-          QRgb strRgb =dialog.getRgba();
 
-          qDebug()<<strRgb<<color;
           if ("pushButton_change" == senderName)
           {
 //              ui->widget->setAutoFillBackground(true);//必须有这条语句
 //              ui->widget->setPalette(QPalette(color));
+//              qDebug()<<strRgb.toRgb()<<color;
           }
         }
 
-       QString newFile = QString(tr("%1").arg(_FileDir)+"/2.txt");
-       QByteArray needLine;
-       QFile file(newFile);
-      if(!file.open(QIODevice::ReadOnly|QIODevice::Text| QIODevice:: WriteOnly))
-      {
-          qDebug()<<QStringLiteral("打开文件失败");
-      }
-       QByteArray line = file.readLine();
-       needLine = line;
+//       QString newFile = QString(tr("%1").arg(_FileDir)+"/2.txt");
+//       QByteArray needLine;
+//       QFile file(newFile);
+//      if(!file.open(QIODevice::ReadOnly|QIODevice::Text| QIODevice:: WriteOnly))
+//      {
+//          qDebug()<<QStringLiteral("打开文件失败");
+//      }
+//       QByteArray line = file.readLine();
+//       needLine = line;
 
-      int a= needLine.indexOf("fill",0);
-      QString str= needLine.mid(a+6,3);
-      needLine.replace(str,"xxx");
-      file.close();
-      file.open(QIODevice:: WriteOnly);
-      file.write(needLine);
-       qDebug()<<a<<str<<"dddddddddddddddddddddddd";
+//      int a= needLine.indexOf("fill",0);
+//      QString str= needLine.mid(a+6,3);
+//      needLine.replace(str,"xxx");
+//      file.close();
+//      file.open(QIODevice:: WriteOnly);
+//      file.write(needLine);
+//       qDebug()<<a<<str<<"dddddddddddddddddddddddd";
+}
+void SvgChangeForm::on_pushButton_File_path_clicked()
+{
+    QString file= QFileDialog::getOpenFileName(NULL," ",".","*.zip *.svg");
+    if(!file.isEmpty())
+    {
+        _FileDir=file;
+        ui->lineEdit_dir_name->setText(_FileDir);
+    }
 }
